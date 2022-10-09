@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lrn/styles.dart';
 
-import 'forecast_entry.dart';
+import '../forecast_entry.dart';
 
 TableRow renderForecast(ForecastEntry entry) {
   return TableRow(children: [
@@ -12,7 +11,6 @@ TableRow renderForecast(ForecastEntry entry) {
     Icon(
       entry.weather.icon,
       size: 20,
-      color: AppColor.midnightSky,
     ),
     Padding(
       padding: EdgeInsets.only(left: 5, right: 5),
