@@ -6,9 +6,7 @@ import '../forecast_model.dart';
 import './days_tabs/days.dart';
 
 class ForecastTable extends StatelessWidget {
-  ForecastTable({
-    Key? key,
-  }) : super(key: key);
+  const ForecastTable({super.key});
 
   @override
   Widget build(BuildContext context) {
