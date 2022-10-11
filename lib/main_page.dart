@@ -14,7 +14,7 @@ class MainPage extends HookWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
-          padding: EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 20),
           child: TimerCount(
             timer$: behaviour.timer$,
           ),
@@ -44,46 +44,24 @@ class TimerActions extends HookWidget {
   }
 
   List<Widget> _buildActions(BehaviourResult behaviour, TimerState timer) {
-    if (timer is TimerReset) {
-      return [
+    return [
+      if (timer is TimerReset || timer is TimerPaused)
         IconButton(
           onPressed: () => behaviour.start.add(null),
-          icon: Icon(Icons.play_arrow),
+          icon: const Icon(Icons.play_arrow),
         ),
-      ];
-    }
-
-    if (timer is TimerRunning) {
-      return [
+      if (timer is TimerRunning)
         IconButton(
           onPressed: () => behaviour.pause.add(null),
-          icon: Icon(Icons.pause),
+          icon: const Icon(Icons.pause),
         ),
+      if (timer is TimerRunning ||
+          timer is TimerPaused ||
+          timer is TimerFinished)
         IconButton(
           onPressed: () => behaviour.reset.add(null),
-          icon: Icon(Icons.refresh),
-        ),
-      ];
-    }
-
-    if (timer is TimerPaused) {
-      return [
-        IconButton(
-          onPressed: () => behaviour.start.add(null),
-          icon: Icon(Icons.play_arrow),
-        ),
-        IconButton(
-          onPressed: () => behaviour.reset.add(null),
-          icon: Icon(Icons.refresh),
-        ),
-      ];
-    }
-
-    return [
-      IconButton(
-        onPressed: () => behaviour.reset.add(null),
-        icon: Icon(Icons.refresh),
-      ),
+          icon: const Icon(Icons.refresh),
+        )
     ];
   }
 }

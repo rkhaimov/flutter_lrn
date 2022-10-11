@@ -23,7 +23,7 @@ BehaviourResult useBehaviour() {
         .map((_) => TimerFinished());
 
     var starting$ = start
-        .switchMap(
+        .exhaustMap(
           (_) => Stream.periodic(const Duration(seconds: 1))
               .takeUntil(pausing$)
               .takeUntil(resetting$)
