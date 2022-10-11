@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lrn/forecast/render_forecast.dart';
+import 'package:lrn/forecast_entry.dart';
 import 'package:provider/provider.dart';
 
-import '../forecast_model.dart';
 import './days_tabs/days.dart';
 
 class ForecastTable extends StatelessWidget {
@@ -10,7 +10,7 @@ class ForecastTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var forecast = context.watch<ForecastModel>().forecast;
+    var forecast = context.watch<List<ForecastEntry>>();
 
     return Container(
       width: double.infinity,
