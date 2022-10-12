@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'day_tab_controller.dart';
-import 'forecast/forecast_table.dart';
-import 'forecast/weather_symbol.dart';
+import 'forecast_table.dart';
+import 'weather_symbol.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

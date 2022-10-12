@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../forecast_entry.dart';
-import '../../temperature_unit.dart';
+import '../forecast_entry.dart';
+import '../temperature_unit.dart';
 
 class DayShortInfo extends StatelessWidget {
   final ForecastEntry forecast;

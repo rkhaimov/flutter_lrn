@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lrn/forecast/render_forecast.dart';
-import 'package:lrn/forecast_entry.dart';
+import 'package:lrn/forecast/forecast_entry.dart';
 import 'package:provider/provider.dart';
 
 import './days_tabs/days.dart';

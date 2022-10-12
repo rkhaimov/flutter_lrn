@@ -1,7 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'hooks.dart';
+import '../utils/hooks.dart';
 
 BehaviourResult useBehaviour() {
   var start = useMemoized(() => PublishSubject());

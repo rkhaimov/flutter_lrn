@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lrn/forecast_entry.dart';
+import 'package:lrn/forecast/forecast_entry.dart';
 import 'package:provider/provider.dart';
 
 class WeatherSymbol extends StatelessWidget {

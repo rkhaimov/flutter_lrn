@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../forecast_entry.dart';
+import 'forecast_entry.dart';
 
 TableRow renderForecast(ForecastEntry entry) {
   return TableRow(children: [

@@ -1,4 +1,4 @@
-import 'package:lrn/weather.dart';
+import 'package:lrn/forecast/weather.dart';
 
 class ForecastEntry {
   final String day;
