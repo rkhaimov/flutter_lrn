@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-enum TemperatureUnit { celsius, fahrenheit }
-
 enum Weather {
   snow(Icons.ac_unit, 'Snow'),
   cloudy(Icons.cloud, 'Cloudy'),

@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lrn/weather.dart';
 import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'forecast_entry.dart';
-import 'hooks.dart';
 
 class DayTabController extends HookWidget {
   final Widget child;
@@ -25,15 +23,6 @@ class DayTabController extends HookWidget {
     var controller = useTabController(
       initialLength: forecast.value.length,
       keys: [forecast.value.length],
-    );
-
-    useEffectObservable(
-      () => Stream.periodic(const Duration(seconds: 5)).take(1).doOnData((_) {
-        forecast.value = [
-          ForecastEntry('Saturday', Weather.rain, 8, 1),
-          ForecastEntry('Sunday', Weather.cloudy, 9, 1),
-        ];
-      }).ignoreElements(),
     );
 
     return MultiProvider(

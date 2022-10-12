@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../forecast_entry.dart';
+import '../../temperature_unit.dart';
 
 class DayShortInfo extends StatelessWidget {
   final ForecastEntry forecast;
@@ -23,12 +25,14 @@ class DayShortInfo extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${forecast.dayT.toStringAsFixed(0)} °C',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(fontWeight: FontWeight.w500),
+            Consumer<TemperatureUnitContext>(
+              builder: (context, tu, _) => Text(
+                '${tu.unit.value.transform(forecast.dayT).toStringAsFixed(0)} ${tu.unit.value.symbol}',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4!
+                    .copyWith(fontWeight: FontWeight.w500),
+              ),
             ),
           ],
         )
