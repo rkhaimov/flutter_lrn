@@ -1,34 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AddCity extends StatefulWidget {
+class AddCity extends HookWidget {
   const AddCity({super.key});
 
   @override
-  State<AddCity> createState() => _AddCityState();
-}
-
-class _AddCityState extends State<AddCity> {
-  @override
   Widget build(BuildContext context) {
+    var city = useTextEditingController();
+    var confirmation = useTextEditingController();
+
     return Form(
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: InputDecoration(hintText: "Safe city"),
-            ),
-            Padding(
+      autovalidateMode: AutovalidateMode.disabled,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: city,
+            validator: (value) => value == null || value.isEmpty
+                ? "Please, enter something"
+                : null,
+            decoration: InputDecoration(hintText: "Safe city"),
+          ),
+          TextFormField(
+            controller: confirmation,
+            validator: (confirmation) =>
+                confirmation != city.text ? "Values must match" : null,
+            decoration: InputDecoration(hintText: "City confirmation"),
+          ),
+          Builder(
+            builder: (context) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Builder(
-                builder: (context) => ElevatedButton(
-                  onPressed: () {
-                    var form = Form.of(context);
-                  },
-                  child: const Text('Submit'),
-                ),
+              child: ElevatedButton(
+                onPressed: () {
+                  var form = Form.of(context)!;
+
+                  if (form.validate()) {
+                    print("Submit ${city.text}");
+                  }
+                },
+                child: const Text('Submit'),
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
