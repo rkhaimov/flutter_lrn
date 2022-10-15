@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:lrn/utils/hooks.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ImplicitAnimation extends HookWidget {
