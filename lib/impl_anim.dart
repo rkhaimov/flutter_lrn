@@ -10,21 +10,22 @@ class ImplicitAnimation extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    var colors$ = useMemoized(
-      () => Stream.periodic(Duration(seconds: 5), (index) => index)
-          .map((index) => colors[index % colors.length]),
-    );
+    var to = useState(100.0);
+    const start = 0.0;
 
-    var color = useStream(colors$, initialData: colors.first);
-
-    return AnimatedContainer(
-      width: 300,
-      height: 300,
-      transform: Matrix4.identity().scaled(1.0),
-      transformAlignment: Alignment.center,
-      duration: Duration(seconds: 1),
-      color: Colors.black,
-      curve: MyCurve(),
+    return Column(
+      children: [
+        TweenAnimationBuilder(
+          tween: Tween(begin: start, end: to.value),
+          curve: Curves.bounceInOut,
+          duration: Duration(seconds: 1),
+          builder: (context, value, _) => Align(
+            alignment: Alignment.center,
+            child: Text("Hello world ${value.toStringAsFixed(0)}"),
+          ),
+        ),
+        Slider(value: to.value, onChanged: (next) => to.value = next, min: 0, max: 1000,),
+      ],
     );
   }
 }
