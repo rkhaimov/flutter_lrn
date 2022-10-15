@@ -1,38 +1,70 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-
-const colors = [Colors.white, Colors.black];
+import 'package:lrn/utils/hooks.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ImplicitAnimation extends HookWidget {
   const ImplicitAnimation({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var to = useState(100.0);
-    const start = 0.0;
+    var max = MediaQuery.of(context).size.width;
+    var position = useState(0.0);
+    var progress = position.value / max;
 
-    return Column(
-      children: [
-        TweenAnimationBuilder(
-          tween: Tween(begin: start, end: to.value),
-          curve: Curves.bounceInOut,
-          duration: Duration(seconds: 1),
-          builder: (context, value, _) => Align(
-            alignment: Alignment.center,
-            child: Text("Hello world ${value.toStringAsFixed(0)}"),
+    return SizedBox.expand(
+      child: Stack(
+        children: [
+          SizedBox(
+            height: 50,
+            child: Slider(
+              value: position.value,
+              onChanged: (next) => position.value = next,
+              min: 0,
+              max: max,
+            ),
           ),
-        ),
-        Slider(value: to.value, onChanged: (next) => to.value = next, min: 0, max: 1000,),
-      ],
+          AnimatedContainer(
+            duration: Duration(seconds: 1),
+            width: 50,
+            height: 50,
+            curve: Curves.bounceOut,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50 * progress),
+              color: Colors.red,
+            ),
+            transformAlignment: Alignment.center,
+            transform: Matrix4.translationValues(position.value, 100, 0)
+              ..rotateZ(pi * progress)
+              ..scale(1.0 + 1.0 * progress),
+          )
+        ],
+      ),
     );
   }
 }
 
-class MyCurve extends Curve {
-  @override
-  double transformInternal(double t) {
-    return sin(t * 3 * pi / 2) * -1;
+Stream<T> fromValueNotifier<T>(ValueNotifier<T> notifier) {
+  return fromListenable(notifier)
+      .startWith(notifier.value)
+      .map((_) => notifier.value);
+}
+
+Stream<void> fromListenable(Listenable listenable) {
+  late StreamController<void> controller;
+
+  void handle() {
+    controller.add(null);
   }
+
+  controller = StreamController(onListen: () {
+    listenable.addListener(handle);
+  }, onCancel: () {
+    listenable.removeListener(handle);
+  });
+
+  return controller.stream;
 }

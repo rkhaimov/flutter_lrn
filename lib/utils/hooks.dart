@@ -12,6 +12,6 @@ T useBehaviorSubject<T>(BehaviorSubject<T> subject,
   return snapshot.data as T;
 }
 
-void useEffectObservable(Stream<Never> Function() effects) {
-  useStream(useMemoized(effects));
+void useEffectObservable(Stream<dynamic> Function() effects) {
+  useStream(useMemoized(() => effects().ignoreElements()));
 }
