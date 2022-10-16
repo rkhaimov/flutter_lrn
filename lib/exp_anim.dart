@@ -10,8 +10,9 @@ class ExplicitAnimation extends HookWidget {
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       tween: Tween(begin: 0.0, end: (3 * pow(10, 5)).toDouble()),
-      duration: Duration(seconds: 5),
-      builder: (context, value, child) => Text("${value.toStringAsFixed(0)} m/s"),
+      duration: const Duration(seconds: 5),
+      builder: (context, value, child) =>
+          Text("${value.toStringAsFixed(0)} m/s"),
     );
   }
 }
